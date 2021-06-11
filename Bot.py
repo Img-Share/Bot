@@ -93,7 +93,7 @@ async def postmeme(ctx, *, arg):
 @client.command(brief='Posts A Meme Video to the Meme folder', description='Posts A Meme Video to the Meme folder')
 async def postmemevideo(ctx, *, arg):
     p = (Path(os.curdir) / arg).resolve()
-    if p.parent != Path('os.curdir').resolve():
+    if p.parent != Path(os.curdir).resolve():
         await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
         return
     else:
@@ -115,7 +115,7 @@ async def randompet(ctx, *args):
 @client.command(brief='Posts A pet to the pet folder', description='Posts A pet to the pet folder')
 async def postpet(ctx, *, arg):
     p = (Path(os.curdir) / arg).resolve()
-    if p.parent != Path('os.curdir').resolve():
+    if p.parent != Path(os.curdir).resolve():
         await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
         return
     else:
@@ -128,7 +128,7 @@ async def postpet(ctx, *, arg):
 @client.command(brief='Gets a certain meme', description='Gets a certain meme', aliases=["ctmeme", "ctm"])
 async def certainmeme(ctx, *, arg):
     p = (Path(os.curdir) / arg).resolve()
-    if p.parent != Path('os.curdir').resolve():
+    if p.parent != Path(os.curdir).resolve():
         await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
         return
     else:
@@ -142,7 +142,7 @@ async def certainmeme(ctx, *, arg):
 @client.command(brief='Gets a certan pet', description='Gets a certan pet', aliases=["ctpet", "ctp"])
 async def certainpet(ctx, *, arg):
     p = (Path(os.curdir) / arg).resolve()
-    if p.parent != Path('os.curdir').resolve():
+    if p.parent != Path(os.curdir).resolve():
         await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
         return
     else:
@@ -155,16 +155,16 @@ async def certainpet(ctx, *, arg):
         
 @client.command(brief='Shows all of the memes', description='Shows all of the memes')
 async def allmemes(ctx):
-    await ctx.send((f'(updates every 2 minutes)'), file=discord.File('os.curdir/meme.txt'))
+    await ctx.send((f'(updates every 2 minutes)'), file=discord.File(os.curdir + '/meme.txt'))
     
 @client.command(brief='Shows all of the pets', description='Shows all of the pets')
 async def allpets(ctx):
-    await ctx.send((f'(updates every 2 minutes)'), file=discord.File('os.curdir/pet.txt'))
+    await ctx.send((f'(updates every 2 minutes)'), file=discord.File(os.curdir + '/pet.txt'))
     
 @client.command(brief='admin command', description='admin command')
 async def breaktest(ctx, *, arg):
     p = (Path(os.curdir) / arg).resolve()
-    if p.parent != Path('os.curdir').resolve():
+    if p.parent != Path(os.curdir).resolve():
         await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
         return
     else:
