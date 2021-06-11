@@ -5,11 +5,10 @@ from dotenv import load_dotenv
 
 client = Bot(command_prefix = '#') 
 @client.event
-async def on_command_error(self, ctx, error):
+async def on_command_error(ctx, error):
     await ctx.send(f"Error! <:ImgShareError:851852314242973746> did you fill out everything correctly? (Error Message: {str(error)})")
     print(str(error))
-    
-    
+
 @client.event
 async def on_guild_join(guild):
     general = find(lambda x: x.name == 'general',  guild.text_channels)
