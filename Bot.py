@@ -179,7 +179,9 @@ async def randommusic(ctx):
     music = [
         "https://www.youtube.com/watch?v=zW0Gn2ZV6Ys",
         "https://www.youtube.com/watch?v=Zy6hbtm3hrI",
-        "https://www.youtube.com/watch?v=Ya8Sng3mZqA"
+        "https://www.youtube.com/watch?v=Ya8Sng3mZqA",
+        "https://www.youtube.com/watch?v=7_6gFfyibhE",
+        "https://www.youtube.com/watch?v=iFToc0inaeE"
     ]
     await ctx.send(random.choice(music))
 load_dotenv()
