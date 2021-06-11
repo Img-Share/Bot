@@ -50,7 +50,6 @@ class ImageSharing(commands.Cog):
             await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
             print(imageName) 
             print('was added to the meme folder')
-            print(dateTimeObj)
 
     @commands.command(brief='Posts A Meme Video to the Meme folder', description='Posts A Meme Video to the Meme folder')
     async def postmemevideo(self, ctx, *, arg):
