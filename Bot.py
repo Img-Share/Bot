@@ -174,6 +174,13 @@ async def breaktest(ctx, *, arg):
         print(imageName) 
         print('was added to the breaktest folder')
     
-
+@client.command(bref="Posts a random Nintendo music video")
+async def randommusic(ctx):
+    music = [
+        "https://www.youtube.com/watch?v=zW0Gn2ZV6Ys",
+        "https://www.youtube.com/watch?v=Zy6hbtm3hrI",
+        "https://www.youtube.com/watch?v=Ya8Sng3mZqA"
+    ]
+    await ctx.send(random.choice(music))
 load_dotenv()
 client.run(os.getenv("DISCORD_TOKEN"))
