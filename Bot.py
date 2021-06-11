@@ -1,6 +1,6 @@
 import os
 from discord.ext.commands import Bot
-from discord.ext import find
+from discord.utils import find
 from dotenv import load_dotenv
 
 client = Bot(command_prefix = '#') 

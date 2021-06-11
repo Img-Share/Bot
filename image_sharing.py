@@ -5,7 +5,6 @@ import discord
 from discord import message
 from discord.ext import commands
 from pathlib import Path
-from discord.utils import find
 from discord.ext.tasks import loop
 import os
 class ImageSharing(commands.Cog):
