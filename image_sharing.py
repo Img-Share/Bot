@@ -40,8 +40,8 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Posts A Meme to the Meme folder', description='Posts A Meme to the Meme folder')
     async def postmeme(self, ctx, *, arg):
-        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
-        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
+        p = (Path(os.curdir) / arg).resolve()
+        if p.parent != Path(os.curdir).resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -53,8 +53,8 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Posts A Meme Video to the Meme folder', description='Posts A Meme Video to the Meme folder')
     async def postmemevideo(self, ctx, *, arg):
-        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
-        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
+        p = (Path(os.curdir) / arg).resolve()
+        if p.parent != Path(os.curdir).resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -75,8 +75,8 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Posts A pet to the pet folder', description='Posts A pet to the pet folder')
     async def postpet(self, ctx, *, arg):
-        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
-        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
+        p = (Path(os.curdir) / arg).resolve()
+        if p.parent != Path(os.curdir).resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -88,8 +88,8 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Gets a certain meme', description='Gets a certain meme', aliases=["ctmeme", "ctm"])
     async def certainmeme(self, ctx, *, arg):
-        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
-        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
+        p = (Path(os.curdir) / arg).resolve()
+        if p.parent != Path(os.curdir).resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -102,8 +102,8 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Gets a certan pet', description='Gets a certan pet', aliases=["ctpet", "ctp"])
     async def certainpet(self, ctx, *, arg):
-        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
-        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
+        p = (Path(os.curdir) / arg).resolve()
+        if p.parent != Path(os.curdir).resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -124,8 +124,8 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='admin command', description='admin command')
     async def breaktest(self, ctx, *, arg):
-        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
-        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
+        p = (Path(os.curdir) / arg).resolve()
+        if p.parent != Path(os.curdir).resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
