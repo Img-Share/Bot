@@ -11,7 +11,7 @@ import os
 class ImageSharing(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    @cog_slash(description='Shows the Guidelines', aliases=["rule", "rules"])
+    @cog_slash(description='Shows the Guidelines')
     async def guidelines(self, ctx):
         await ctx.send(f'Guidelines: \n No NSFW \n No Deepfakes (looking at you <@729135459405529118> <:eyes_sus:851168417453047808>) \n No Racisim \n If you wouldnt show your friends/family it, dont post it (eg: dont post anything offensive)')
 
@@ -30,7 +30,7 @@ class ImageSharing(commands.Cog):
         await ctx.send(f'`{round(self.bot.latency * 1000)} ms`')
         print(f'the bot was pinged' f' ({round(self.bot.latency * 1000)} ms)')
 
-    @cog_slash(description='Gets a random Meme', aliases=["randomeme", "rdmmeme", "rdmeme"])
+    @cog_slash(description='Gets a random Meme')
     async def randommeme(self, ctx, *, args):
             BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./meme/')
@@ -65,7 +65,7 @@ class ImageSharing(commands.Cog):
             print(VideoName) 
             print('was added to the meme folder')
 
-    @cog_slash(description='Gets a random pet', aliases=["rdmpet", "rdpet"])
+    @cog_slash(description='Gets a random pet')
     async def randompet(self, ctx, *, args):
             BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./pet/')
@@ -87,7 +87,7 @@ class ImageSharing(commands.Cog):
             print(imageName) 
             print('was added to the pet folder')
 
-    @cog_slash(description='Gets a certain meme', aliases=["ctmeme", "ctm"])
+    @cog_slash(description='Gets a certain meme')
     async def certainmeme(self, ctx, *, arg):
         p = (Path(os.curdir) / arg).resolve()
         if p.parent != Path(os.curdir).resolve():
@@ -101,7 +101,7 @@ class ImageSharing(commands.Cog):
             await ctx.send((imgString), file=discord.File(path))
             await BotMessage.delete()
 
-    @cog_slash(description='Gets a certan pet', aliases=["ctpet", "ctp"])
+    @cog_slash(description='Gets a certan pet')
     async def certainpet(self, ctx, *, arg):
         p = (Path(os.curdir) / arg).resolve()
         if p.parent != Path(os.curdir).resolve():
