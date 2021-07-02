@@ -4,8 +4,10 @@ import discord
 from discord.ext.commands import Bot
 from discord.utils import find
 from dotenv import load_dotenv
+from discord_slash import SlashCommand
 
 client = Bot(command_prefix = '#') 
+slash = SlashCommand(client, True)
 @client.event
 async def on_command_error(ctx, error):
     await ctx.send(f"Error! <:ImgShareError:851852314242973746> did you fill out everything correctly? (Error Message: {str(error)})")
