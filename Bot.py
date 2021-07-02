@@ -1,4 +1,6 @@
+import asyncio
 import os
+import discord
 from discord.ext.commands import Bot
 from discord.utils import find
 from dotenv import load_dotenv
@@ -8,7 +10,23 @@ client = Bot(command_prefix = '#')
 async def on_command_error(ctx, error):
     await ctx.send(f"Error! <:ImgShareError:851852314242973746> did you fill out everything correctly? (Error Message: {str(error)})")
     print(str(error))
+@client.event
+async def on_ready():
+    client.loop.create_task(status_task())
 
+
+async def status_task():
+    while True:
+        await client.change_presence(activity=discord.Game(name="Yo Mama: The Game | (#help)"))
+        await asyncio.sleep(60)
+        await client.change_presence(activity=discord.Game(name="Hey Pikmin 2 | (#help)"))
+        await asyncio.sleep(60)
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="The end of the world | (#help)"))
+        await asyncio.sleep(60)
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Lo-fi Hip-Hop Beats To Treat Patients To | (#help)"))
+        await asyncio.sleep(60)
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="People whine about the logo like babies :trol: | (#help)"))
+        await asyncio.sleep(60)
 @client.event
 async def on_guild_join(guild):
     general = find(lambda x: x.name == 'general',  guild.text_channels)
