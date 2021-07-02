@@ -27,20 +27,21 @@ class ImageSharing(commands.Cog):
     @commands.command(brief='Pings the bot', description='Pings the bot')
     async def ping(self, ctx):
         await ctx.send(f'`{round(self.bot.latency * 1000)} ms`')
+        print(f'the bot was pinged' f' ({round(self.bot.latency * 1000)} ms)')
 
     @commands.command(brief='Gets a random Meme', description='Gets a random Meme', aliases=["randomeme", "rdmmeme", "rdmeme"])
-    async def randommeme(self, ctx, *args):
+    async def randommeme(self, ctx, *, args):
             BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./meme/')
             imgString = random.choice(image)  # Selects a random element from the list
             path = "./meme/" + imgString
             await ctx.send((imgString), file=discord.File(path))
             await BotMessage.delete()
-            
+
     @commands.command(brief='Posts A Meme to the Meme folder', description='Posts A Meme to the Meme folder')
     async def postmeme(self, ctx, *, arg):
-        p = (Path(os.curdir) / arg).resolve()
-        if p.parent != Path(os.curdir).resolve():
+        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
+        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -49,11 +50,12 @@ class ImageSharing(commands.Cog):
             await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
             print(imageName) 
             print('was added to the meme folder')
+            print(dateTimeObj)
 
     @commands.command(brief='Posts A Meme Video to the Meme folder', description='Posts A Meme Video to the Meme folder')
     async def postmemevideo(self, ctx, *, arg):
-        p = (Path(os.curdir) / arg).resolve()
-        if p.parent != Path(os.curdir).resolve():
+        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
+        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -64,7 +66,7 @@ class ImageSharing(commands.Cog):
             print('was added to the meme folder')
 
     @commands.command(brief='Gets a random pet', description='Gets a random pet', aliases=["rdmpet", "rdpet"])
-    async def randompet(self, ctx, *args):
+    async def randompet(self, ctx, *, args):
             BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./pet/')
             imgString = random.choice(image)  # Selects a random element from the list
@@ -74,8 +76,8 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Posts A pet to the pet folder', description='Posts A pet to the pet folder')
     async def postpet(self, ctx, *, arg):
-        p = (Path(os.curdir) / arg).resolve()
-        if p.parent != Path(os.curdir).resolve():
+        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
+        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -83,12 +85,12 @@ class ImageSharing(commands.Cog):
             await ctx.message.attachments[0].save(imageName)
             await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
             print(imageName) 
-            print('was added to the pet folder by')
-        
+            print('was added to the pet folder')
+
     @commands.command(brief='Gets a certain meme', description='Gets a certain meme', aliases=["ctmeme", "ctm"])
     async def certainmeme(self, ctx, *, arg):
-        p = (Path(os.curdir) / arg).resolve()
-        if p.parent != Path(os.curdir).resolve():
+        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
+        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -98,11 +100,11 @@ class ImageSharing(commands.Cog):
             path = "./meme/" + imgString
             await ctx.send((imgString), file=discord.File(path))
             await BotMessage.delete()
-            
+
     @commands.command(brief='Gets a certan pet', description='Gets a certan pet', aliases=["ctpet", "ctp"])
     async def certainpet(self, ctx, *, arg):
-        p = (Path(os.curdir) / arg).resolve()
-        if p.parent != Path(os.curdir).resolve():
+        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
+        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -112,19 +114,19 @@ class ImageSharing(commands.Cog):
             path = "./pet/" + imgString
             await ctx.send((imgString), file=discord.File(path))
             await BotMessage.delete()
-            
+
     @commands.command(brief='Shows all of the memes', description='Shows all of the memes')
     async def allmemes(self, ctx):
-        await ctx.send((f'(updates every 2 minutes)'), file=discord.File(os.curdir + '/meme.txt'))
-        
+        await ctx.send((f'(updates every 2 minutes)'), file=discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/meme.txt'))
+
     @commands.command(brief='Shows all of the pets', description='Shows all of the pets')
     async def allpets(self, ctx):
-        await ctx.send((f'(updates every 2 minutes)'), file=discord.File(os.curdir + '/pet.txt'))
-        
+        await ctx.send((f'(updates every 2 minutes)'), file=discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/pet.txt'))
+
     @commands.command(brief='admin command', description='admin command')
     async def breaktest(self, ctx, *, arg):
-        p = (Path(os.curdir) / arg).resolve()
-        if p.parent != Path(os.curdir).resolve():
+        p = (Path("/home/pi/Desktop/Bots/Discord/Img.Share/Bot") / arg).resolve()
+        if p.parent != Path('/home/pi/Desktop/Bots/Discord/Img.Share/Bot').resolve():
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
@@ -133,18 +135,6 @@ class ImageSharing(commands.Cog):
             await ctx.send(f'Invalid Permissions')
             print(imageName) 
             print('was added to the breaktest folder')
-        
-    @commands.command(bref="Posts a random Nintendo music video", description="Posts a random Nintendo music video. Punch-Out!! and Metroid are (C) Nintendo. All rights reserved.")
-    async def randommusic(self, ctx):
-        music = [
-            "https://www.youtube.com/watch?v=zW0Gn2ZV6Ys",
-            "https://www.youtube.com/watch?v=Zy6hbtm3hrI",
-            "https://www.youtube.com/watch?v=Ya8Sng3mZqA",
-            "https://www.youtube.com/watch?v=7_6gFfyibhE",
-            "https://www.youtube.com/watch?v=iFToc0inaeE",
-            "https://www.youtube.com/watch?v=MQurUl4Snio"
-        ]
-        await ctx.send(random.choice(music))
 
 def setup(bot):
     bot.add_cog(ImageSharing(bot))
