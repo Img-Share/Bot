@@ -15,16 +15,6 @@ from datetime import datetime
 
 client = commands.Bot(command_prefix = '#') 
 
-dateTimeObj = datetime.now()
-
-
-@client.event
-async def on_ready():
-    print('holy crap it worked')
-    print(dateTimeObj)
-    client.loop.create_task(status_task())
-    
-    
 async def status_task():
     while True:
         await client.change_presence(activity=discord.Game(name="Yo Mama: The Game | (#help)"))
@@ -61,13 +51,11 @@ async def guidelines(ctx):
 async def server(ctx):
     await ctx.send(f'https://discord.gg/MrtBFFQk3k')
     print(f'someone just sent and invite to join the server!')
-    print(dateTimeObj)
 
 @client.command(brief='Sends an invite to the bot', description='Sends an invite to the bot')
 async def invite(ctx):
     await ctx.send(f'https://www.thediamondk.com/bot.html')
     print(f'someone just invited the bot!')
-    print(dateTimeObj)
 
 @client.command(brief='Pings the bot', description='Pings the bot')
 async def ping(ctx):
@@ -93,9 +81,6 @@ async def postmeme(ctx, *, arg):
         imageName = './meme/' + arg + '.png'
         await ctx.message.attachments[0].save(imageName)
         await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
-        print(imageName) 
-        print('was added to the meme folder')
-        print(dateTimeObj)
 
 @client.command(brief='Posts A Meme Video to the Meme folder', description='Posts A Meme Video to the Meme folder')
 async def postmemevideo(ctx, *, arg):
@@ -107,10 +92,6 @@ async def postmemevideo(ctx, *, arg):
         VideoName = './meme/' + arg + '.mp4'
         await ctx.message.attachments[0].save(VideoName)
         await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
-        print(VideoName) 
-        print('was added to the meme folder')
-        print(dateTimeObj)
-
 @client.command(brief='Gets a random pet', description='Gets a random pet', aliases=["rdmpet", "rdpet"])
 async def randompet(ctx, *args):
         BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
@@ -130,9 +111,6 @@ async def postpet(ctx, *, arg):
         imageName = './pet/' + arg + '.png'
         await ctx.message.attachments[0].save(imageName)
         await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
-        print(imageName) 
-        print('was added to the pet folder')
-        print(dateTimeObj)
     
 @client.command(brief='Gets a certain meme', description='Gets a certain meme', aliases=["ctmeme", "ctm"])
 async def certainmeme(ctx, *, arg):
@@ -182,7 +160,6 @@ async def breaktest(ctx, *, arg):
         await ctx.send(f'Invalid Permissions')
         print(imageName) 
         print('was added to the breaktest folder')
-        print(dateTimeObj)
     
 
 load_dotenv()
