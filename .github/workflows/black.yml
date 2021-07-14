@@ -3,5 +3,6 @@ on: [pull_request]
 jobs:
   blacken:
     runs-on: ubuntu-latest
+    steps:
     - name: Black Code Formatter
       uses: lgeiger/black-action@v1.0.1
