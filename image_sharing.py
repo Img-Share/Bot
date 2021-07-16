@@ -124,7 +124,7 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Shows all of the pets', description='Shows all of the pets')
     async def allpets(self, ctx):
-        files = [f for f in os.listdir("pets") if os.isfile(f)]
+        files = [f for f in os.listdir("pet") if os.isfile(f)]
         msg = ""
         for f in files:
             msg += f + "\n"
