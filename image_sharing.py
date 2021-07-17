@@ -116,7 +116,7 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Shows all of the memes', description='Shows all of the memes')
     async def allmemes(self, ctx):
-        files = [f for f in os.listdir("meme") if os.path.isfile(f)]
+        files = [f for f in os.listdir("meme") if os.path.isfile(os.path.join("meme", f))]
         msg = ""
         for f in files:
             msg += f + "\n"
@@ -124,7 +124,7 @@ class ImageSharing(commands.Cog):
 
     @commands.command(brief='Shows all of the pets', description='Shows all of the pets')
     async def allpets(self, ctx):
-        files = [f for f in os.listdir("pet") if os.path.isfile(f)]
+        files = [f for f in os.listdir("pet") if os.path.isfile(os.path.join("pet", f))]
         msg = ""
         for f in files:
             msg += f + "\n"
