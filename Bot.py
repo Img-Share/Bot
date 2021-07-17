@@ -32,6 +32,8 @@ async def on_guild_join(guild):
     general = find(lambda x: x.name == 'general',  guild.text_channels)
     if general and general.permissions_for(guild.me).send_messages:
         await general.send('Guidelines: \n No NSFW \n No Deepfakes (looking at you <@729135459405529118> <:eyes_sus:851168417453047808>) \n No Racisim \n If you wouldnt show your friends/family it, dont post it (eg: dont post anything offensive)'.format(guild.name))
-client.load_extension('image_sharing')
+client.load_extension('Post')
+client.load_extension('Get')
+client.load_extension('Other')
 load_dotenv()
 client.run(os.getenv("DISCORD_TOKEN"))
