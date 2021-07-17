@@ -30,7 +30,7 @@ class ImageSharing(commands.Cog):
         print(f'the bot was pinged' f' ({round(self.bot.latency * 1000)} ms)')
 
     @commands.command(brief='Gets a random Meme', description='Gets a random Meme', aliases=["randomeme", "rdmmeme", "rdmeme"])
-    async def randommeme(self, ctx, *, args):
+    async def randommeme(self, ctx):
             BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./meme/')
             imgString = random.choice(image)  # Selects a random element from the list
@@ -65,7 +65,7 @@ class ImageSharing(commands.Cog):
             print('was added to the meme folder')
 
     @commands.command(brief='Gets a random pet', description='Gets a random pet', aliases=["rdmpet", "rdpet"])
-    async def randompet(self, ctx, *, args):
+    async def randompet(self, ctx):
             BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./pet/')
             imgString = random.choice(image)  # Selects a random element from the list
