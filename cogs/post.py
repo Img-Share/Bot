@@ -50,20 +50,5 @@ class Post(commands.Cog):
             print(imageName) 
             print('was added to the pet folder')
 
-
-
-    @commands.command(brief='admin command', description='admin command')
-    async def breaktest(self, ctx, *, arg):
-        p = (Path(os.curdir) / arg).resolve()
-        if p.parent != Path(os.curdir).resolve():
-            await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
-            return
-        else:
-            imageName = './breaktest/' + arg + '.png'
-            await ctx.message.attachments[0].save(imageName)
-            await ctx.send(f'Invalid Permissions')
-            print(imageName) 
-            print('was added to the breaktest folder')
-
 def setup(bot):
     bot.add_cog(Post(bot))
