@@ -13,22 +13,23 @@ class Get(commands.Cog):
 
     @commands.command(brief='Gets a random Meme', description='Gets a random Meme', aliases=["randomeme", "rdmmeme", "rdmeme"])
     async def randommeme(self, ctx):
-            BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
+            bot_message = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./meme/')
-            imgString = random.choice(image)  # Selects a random element from the list
-            path = "./meme/" + imgString
-            await ctx.send((imgString), file=discord.File(path))
-            await BotMessage.delete()
+            file_name = random.choice(image)  # Selects a random element from the list
+            path = "./meme/" + file_name
+            await ctx.send(file_name, file=discord.File(path))
+            await bot_message.delete()
 
 
     @commands.command(brief='Gets a random pet', description='Gets a random pet', aliases=["rdmpet", "rdpet"])
     async def randompet(self, ctx):
-            BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
+            bot_message = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./pet/')
-            imgString = random.choice(image)  # Selects a random element from the list
-            path = "./pet/" + imgString
-            await ctx.send((imgString), file=discord.File(path))
-            await BotMessage.delete()
+            file_name = random.choice(image)  # Selects a random element from the list
+            path = "./pet/" + file_name
+            file = discord.File(path)
+            await ctx.send(file_name, file=file)
+            await bot_message.delete()
 
 
     @commands.command(brief='Gets a certain meme', description='Gets a certain meme', aliases=["ctmeme", "ctm"])
@@ -38,12 +39,13 @@ class Get(commands.Cog):
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
-            BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
+            bot_message = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./meme/')
-            imgString = arg  
-            path = "./meme/" + imgString
-            await ctx.send((imgString), file=discord.File(path))
-            await BotMessage.delete()
+            file_name = arg  
+            path = "./meme/" + file_name
+            file = discord.File(path)
+            await ctx.send(file_name, file=file)
+            await bot_message.delete()
 
     @commands.command(brief='Gets a certan pet', description='Gets a certan pet', aliases=["ctpet", "ctp"])
     async def certainpet(self, ctx, *, arg):
@@ -52,21 +54,23 @@ class Get(commands.Cog):
             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
             return
         else:
-            BotMessage = await ctx.send("<a:loading:851251570971770920> sending...")
+            bot_message = await ctx.send("<a:loading:851251570971770920> sending...")
             image = os.listdir('./pet/')
-            imgString = arg  
-            path = "./pet/" + imgString
-            await ctx.send((imgString), file=discord.File(path))
-            await BotMessage.delete()
+            file_name = arg  
+            path = "./pet/" + file_name
+            file = discord.File(path)
+            await ctx.send(file_name, file=file)
+            await bot_message.delete()
 
     @commands.command(brief='Shows all of the memes', description='Shows all of the memes')
     async def allmemes(self, ctx):
-        meme_list = discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/meme.txt')
+
+        meme_list = discord.File('./meme.txt')
         await ctx.send(f'(updates every 2 minutes)', file=meme_list)
 
     @commands.command(brief='Shows all of the pets', description='Shows all of the pets')
     async def allpets(self, ctx):
-        pet_list = discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/pet.txt')
+        pet_list = discord.File('./pet.txt')
         await ctx.send(f'(updates every 2 minutes)', file=pet_list)
 
 
