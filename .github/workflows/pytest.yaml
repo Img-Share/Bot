@@ -15,5 +15,7 @@ jobs:
       run: sudo pip3 install pipenv
     - name: Install dependencies
       run: pipenv install --dev --python `which python3`
+    - name: Setup Test
+      run: touch meme.txt && touch pet.txt
     - name: Run tests
       run: pipenv run pytest --cov=.
