@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 discord-pretty-help = "*"
+aiohttp = ">=3.7.4"
 discord.py = "*"
 flask = "*"
 pytest-cov = "*"
