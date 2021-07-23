@@ -1,0 +1,19 @@
+name: "Pytest"
+
+on:
+  push
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install Python 3 and Pip
+      run: sudo apt install python3 python3-pip
+    - name: Install Pipenv
+      run: sudo pip3 install pipenv
+    - name: Install dependencies
+      run: pipenv install --dev --python `which python3`
+    - name: Run tests
+      run: pipenv run pytest --cov=.
