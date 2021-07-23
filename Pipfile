@@ -5,7 +5,8 @@ name = "pypi"
 
 [packages]
 discord-pretty-help = "*"
-discord.py = "*"
+aiohttp = ">=3.7.4"
+discord = {py = "*"}
 flask = "*"
 
 [dev-packages]
