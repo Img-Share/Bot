@@ -14,6 +14,6 @@ jobs:
     - name: Install Pipenv
       run: sudo pip3 install pipenv
     - name: Install dependencies
-      run: pipenv install --dev
+      run: pipenv install --dev --python `which python3`
     - name: Run tests
-      run: pipenv run pytest --cov=.
+      run: pipenv --python `which python3` run pytest --cov=.
