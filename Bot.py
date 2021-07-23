@@ -21,7 +21,9 @@ async def on_command_error(ctx, error):
 async def on_ready():
     client.loop.create_task(status_task())
 
-
+client.load_extension("cogs.get")
+client.load_extension("cogs.other")
+client.load_extension("cogs.post")
 async def status_task():
     while True:
         await client.change_presence(activity=discord.Game(name="Yo Mama: The Game | (#help)"))

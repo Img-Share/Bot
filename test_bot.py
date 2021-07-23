@@ -1,4 +1,4 @@
-from image_sharing import ImageSharing
+from cogs.get import Get
 import pytest
 import asyncio
 class MockView:
@@ -47,7 +47,9 @@ class CogTestClient:
 
 @pytest.fixture
 def client():
-    yield CogTestClient(ImageSharing)
+    yield CogTestClient
 
 def test_allmemes(client):
-    client.run_command("allmemes")
+    client(Get).run_command("allmemes")
+def test_allpets(client):
+    client(Get).run_command("allpets")
