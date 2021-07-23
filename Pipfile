@@ -4,12 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+discord-pretty-help = "*"
 discord.py = "*"
 flask = "*"
 
 [dev-packages]
 pytest = "*"
-
 
 [requires]
 python_version = "3.9"
