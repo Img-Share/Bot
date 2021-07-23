@@ -61,11 +61,13 @@ class Get(commands.Cog):
 
     @commands.command(brief='Shows all of the memes', description='Shows all of the memes')
     async def allmemes(self, ctx):
-        await ctx.send((f'(updates every 2 minutes)'), file=discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/meme.txt'))
+        meme_list = discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/meme.txt')
+        await ctx.send(f'(updates every 2 minutes)', file=meme_list)
 
     @commands.command(brief='Shows all of the pets', description='Shows all of the pets')
     async def allpets(self, ctx):
-        await ctx.send((f'(updates every 2 minutes)'), file=discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/pet.txt'))
+        pet_list = discord.File('/home/pi/Desktop/Bots/Discord/Img.Share/Bot/pet.txt')
+        await ctx.send(f'(updates every 2 minutes)', file=pet_list)
 
 
 def setup(bot):
