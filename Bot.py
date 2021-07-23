@@ -13,6 +13,7 @@ cwd = str(cwd)
 print(f"{cwd}\n-----")
 
 client = Bot(command_prefix = '#') 
+
 @client.event
 async def on_command_error(ctx, error):
     await ctx.send(f"Error! <:ImgShareError:851852314242973746> did you fill out everything correctly? (Error Message: {str(error)})")
