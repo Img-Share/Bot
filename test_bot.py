@@ -33,6 +33,8 @@ class MockBot:
         return True
     def sync_return_true(self, *args, **kwargs):
         return True
+    async def send(self, *args, **kwargs):
+        print(f"Would send message with args: {args} and kwargs: {kwargs}")
 class CogTestClient:
     def __init__(self, cog):
         self._cog = cog(MockBot(None, None))
