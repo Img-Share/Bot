@@ -5,13 +5,9 @@ name = "pypi"
 
 [packages]
 discord-pretty-help = "*"
-aiohttp = ">=3.7.4"
-discord = {py = "*"}
+discord.py = "*"
 flask = "*"
 pytest-cov = "*"
 
 [dev-packages]
 pytest = "*"
-
-[requires]
-python_version = "3.9"
