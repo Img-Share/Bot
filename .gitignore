@@ -5,3 +5,4 @@ meme.txt
 pet.txt
 __pycache__
 .coverage
+htmlcov
