@@ -54,4 +54,7 @@ menu = DefaultMenu('◀️', '▶️', '❌')
 client.help_command = PrettyHelp(navigation=menu, color=Color.teal()) 
 
 load_dotenv()
+if os.getenv("SENTRY_URL"):
+    import sentry_sdk
+    sentry_sdk.init(os.getenv("SENTRY_URL"))
 client.run(os.getenv("DISCORD_TOKEN"))
