@@ -14,8 +14,8 @@ to make #allmemes and #allpets work,
 2. put in: 
 while true
 do
- ls /path/to/meme/folder /path/to/meme.txt/file
- ls /path/to/pet/folder/ > /path/to/pet.txt/file
+ ls /path/to/meme/folder > /path/to/meme.txt/file
+ ls /path/to/pet/folder > /path/to/pet.txt/file
  sleep 120
 done
 3. execute sudo chmod +x /usr/local/bin/amazon-sync  
