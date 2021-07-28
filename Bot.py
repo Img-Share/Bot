@@ -2,6 +2,7 @@ import asyncio
 import os
 import discord
 from pathlib import Path
+from discord.ext import commands
 from discord.ext.commands import Bot
 from discord.utils import find
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ from pretty_help import DefaultMenu, PrettyHelp
 from discord import Color
 from logging import getLogger
 from logging import basicConfig
+import traceback
 logger = getLogger("bot_init")
 
 cwd = Path(__file__).parents[0]
@@ -19,7 +21,17 @@ client = Bot(command_prefix = '#')
 
 @client.event
 async def on_command_error(ctx, error):
-    await ctx.send(f"Error! <:ImgShareError:851852314242973746> did you fill out everything correctly? (Error Message: {str(error)})")
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(f"Error! <:ImgShareError:851852314242973746> You are missing a required argument!")
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send(f"Error! <:ImgShareError:851852314242973746> You did not fill in an argument correctly!")
+    elif isinstance(error, commands.CommandNotFound):
+        # Discord hates bots that do this
+        # So we are going to pass
+        pass
+    else:
+        # Probably something important, log it
+        logger.error(traceback.format_exc(error))
     print(str(error))
 @client.event
 async def on_ready():
