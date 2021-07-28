@@ -32,7 +32,7 @@ class Other(commands.Cog):
         self.logger.log(DEBUG, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) just pinged the bot,it took {round(self.bot.latency * 1000)} ms")
 
 
-    @commands.command(breif="Reload all/one of the bots cogs!")
+    @commands.command(brief="Reload all/one of the bots cogs!")
     @commands.is_owner()
     async def reload(self, ctx, cog=None):
         if not cog:
