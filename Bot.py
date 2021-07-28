@@ -51,7 +51,10 @@ if __name__ == "__main__":
     # I.E its not being imported from another python file run this
     for file in os.listdir(cwd + "/cogs"):
         if file.endswith(".py") and not file.startswith("_"):
-            client.load_extension(f"cogs.{file[:-3]}")
+            try:
+                client.load_extension(f"cogs.{file[:-3]}")
+            except discord.ext.commands.errors.ExtensionAlreadyLoaded:
+                pass
             
 menu = DefaultMenu('◀️', '▶️', '❌')
 client.help_command = PrettyHelp(navigation=menu, color=Color.teal()) 
@@ -61,7 +64,7 @@ kwargs = {
     "filename": os.getenv('IMG_SHARE_LOG', "bot.log"),
     "level": os.getenv('IMG_SHARE_LOG_LEVEL', 'WARNING'),
     "format": os.getenv('IMG_SHARE_LOG_FORMAT', '%(asctime)s:%(levelname)s:%(name)s: %(message)s'),
-    "datefmt": os.getenv('IMG_SHARE_LOG_DATEFMT', '%Y-%m-%d %H:%M:%S')
+    "datefmt": os.getenv('IMG_SHARE_LOG_DATEFMT', '%Y-%m-%d %H:%M:%S'),
 }
 if kwargs["filename"] == "stdout":
     del kwargs["filename"]

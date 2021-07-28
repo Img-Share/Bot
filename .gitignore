@@ -6,3 +6,4 @@ pet.txt
 __pycache__
 .coverage
 htmlcov
+*.log
