@@ -7,9 +7,12 @@ name = "pypi"
 discord-pretty-help = "*"
 aiohttp = ">=3.7.4"
 sentry-sdk = "*"
-discord = {py = "*"}
+"discord.py" = "*"
 flask = "*"
 pytest-cov = "*"
 
 [dev-packages]
 pytest = "*"
+
+[scripts]
+bot = "python3 bot.py"
