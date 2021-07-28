@@ -15,4 +15,4 @@ pytest-cov = "*"
 pytest = "*"
 
 [scripts]
-bot = "python3 bot.py"
+bot = "python bot.py"
