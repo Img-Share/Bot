@@ -7,6 +7,9 @@ from discord.utils import find
 from dotenv import load_dotenv
 from pretty_help import DefaultMenu, PrettyHelp
 from discord import Color
+from logging import getLogger
+from logging import basicConfig
+logger = getLogger("bot_init")
 
 cwd = Path(__file__).parents[0]
 cwd = str(cwd)
@@ -54,7 +57,24 @@ menu = DefaultMenu('◀️', '▶️', '❌')
 client.help_command = PrettyHelp(navigation=menu, color=Color.teal()) 
 
 load_dotenv()
+kwargs = {
+    "filename": os.getenv('IMG_SHARE_LOG', "bot.log"),
+    "level": os.getenv('IMG_SHARE_LOG_LEVEL', 'WARNING'),
+    "format": os.getenv('IMG_SHARE_LOG_FORMAT', '%(asctime)s:%(levelname)s:%(name)s: %(message)s'),
+    "datefmt": os.getenv('IMG_SHARE_LOG_DATEFMT', '%Y-%m-%d %H:%M:%S')
+}
+if kwargs["filename"] == "stdout":
+    del kwargs["filename"]
+
+basicConfig(**kwargs)
+
 if os.getenv("SENTRY_URL"):
     import sentry_sdk
+    from sentry_sdk.integrations.logging import LoggingIntegration
+    sentry_logging = LoggingIntegration(
+        level=kwargs["level"],
+        event_level=os.getenv("SENTRY_EVENT_LEVEL", "WARNING")
+    )
     sentry_sdk.init(os.getenv("SENTRY_URL"))
+
 client.run(os.getenv("DISCORD_TOKEN"))
