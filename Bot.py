@@ -57,7 +57,6 @@ async def on_guild_join(guild):
     general = find(lambda x: x.name == 'general',  guild.text_channels)
     if general and general.permissions_for(guild.me).send_messages:
         await general.send('Guidelines: \n No NSFW \n No Deepfakes (looking at you <@729135459405529118> <:eyes_sus:851168417453047808>) \n No Racisim \n If you wouldnt show your friends/family it, dont post it (eg: dont post anything offensive)'.format(guild.name))
-
 if __name__ == "__main__":
     # When running this file, if it is the 'main' file
     # I.E its not being imported from another python file run this
@@ -85,11 +84,35 @@ basicConfig(**kwargs)
 
 if os.getenv("SENTRY_URL"):
     import sentry_sdk
+    from sentry_sdk import start_transaction
     from sentry_sdk.integrations.logging import LoggingIntegration
     sentry_logging = LoggingIntegration(
         level=kwargs["level"],
         event_level=os.getenv("SENTRY_EVENT_LEVEL", "WARNING")
     )
     sentry_sdk.init(os.getenv("SENTRY_URL"))
+    @client.event
+    async def on_message(message):
+        with start_transaction(op="task", name="on_message"):
+            with sentry_sdk.start_span(op="message", description="Message") as span:
+                span.set_tag("message.id", message.id)
+                span.set_tag("message.author.id", message.author.id)
+                span.set_tag("message.author.name", message.author.name)
+                span.set_tag("message.author.discriminator", message.author.discriminator)
+                span.set_tag("message.author.display_name", message.author.display_name)
+                span.set_tag("message.channel.id", message.channel.id)
+                span.set_tag("message.channel.name", message.channel.name)
+                span.set_tag("message.guild.id", message.guild.id)
+                span.set_tag("message.guild.name", message.guild.name)
+                span.set_tag("message.content", message.content)
+                span.set_tag("message.attachments", message.attachments)
+                span.set_tag("message.embeds", message.embeds)
+                span.set_tag("message.attachments", message.attachments)
+                span.set_tag("message.channel.topic", message.channel.topic)
+                span.set_tag("message.created_at", message.created_at)
+                span.set_tag("message.edited_at", message.edited_at)
+                span.set_tag("message.reactions", message.reactions)
+                span.set_tag("message.mentions", message.mentions)
+                
 
 client.run(os.getenv("DISCORD_TOKEN"))
