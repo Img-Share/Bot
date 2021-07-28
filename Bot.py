@@ -90,7 +90,7 @@ if os.getenv("SENTRY_URL"):
         level=kwargs["level"],
         event_level=os.getenv("SENTRY_EVENT_LEVEL", "WARNING")
     )
-    sentry_sdk.init(os.getenv("SENTRY_URL"))
+    sentry_sdk.init(os.getenv("SENTRY_URL"), traces_sample_rate=0.5)
     @client.event
     async def on_message(message):
         with start_transaction(op="task", name="on_message"):
