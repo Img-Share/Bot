@@ -90,7 +90,7 @@ class Other(commands.Cog):
                             inline=False
                         )
                         self.logger.log(ERROR, f"Error reloading cog {cog}:\n{traceback.format_exception(e)}")
-
+                self.logger.info(INFO, f"Reloaded cog {cog}")
                 await ctx.send(embed=embed)
 
 def setup(bot):
