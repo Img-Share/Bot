@@ -113,6 +113,7 @@ if os.getenv("SENTRY_URL"):
                 span.set_tag("message.edited_at", message.edited_at)
                 span.set_tag("message.reactions", message.reactions)
                 span.set_tag("message.mentions", message.mentions)
+                await client.process_commands(message)
                 
 
 client.run(os.getenv("DISCORD_TOKEN"))
