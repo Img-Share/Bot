@@ -7,9 +7,11 @@ from discord.ext import commands
 from pathlib import Path
 from discord.ext.tasks import loop
 import os, os.path
+from logging import getLogger, ERROR, CRITICAL, INFO, WARNING, DEBUG
 class Post(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.logger = getLogger(__name__)
 
     @commands.command(brief='Posts A Meme to the Meme folder', description='Posts A Meme to the Meme folder')
     async def postmeme(self, ctx, *, arg):
@@ -21,8 +23,7 @@ class Post(commands.Cog):
             imageName = './meme/' + arg + '.png'
             await ctx.message.attachments[0].save(imageName)
             await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
-            print(imageName) 
-            print('was added to the meme folder')
+            self.logger.log(INFO, f"{arg} was just added to the meme folder")
 
     @commands.command(brief='Posts A Meme Video to the Meme folder', description='Posts A Meme Video to the Meme folder')
     async def postmemevideo(self, ctx, *, arg):
@@ -34,8 +35,7 @@ class Post(commands.Cog):
             VideoName = './meme/' + arg + '.mp4'
             await ctx.message.attachments[0].save(VideoName)
             await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
-            print(VideoName) 
-            print('was added to the meme folder')
+            self.logger.log(INFO, f"{arg} was just added to the meme folder")
 
     @commands.command(brief='Posts A pet to the pet folder', description='Posts A pet to the pet folder')
     async def postpet(self, ctx, *, arg):
@@ -46,9 +46,7 @@ class Post(commands.Cog):
         else:
             imageName = './pet/' + arg + '.png'
             await ctx.message.attachments[0].save(imageName)
-            await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
-            print(imageName) 
-            print('was added to the pet folder')
+            self.logger.log(INFO, f"{arg} was just added to the pet folder")
 
 def setup(bot):
     bot.add_cog(Post(bot))
