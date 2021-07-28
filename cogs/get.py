@@ -7,9 +7,11 @@ from discord.ext import commands
 from pathlib import Path
 from discord.ext.tasks import loop
 import os, os.path
+from logging import getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL
 class Get(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.logger = getLogger(__name__)
 
     @commands.command(brief='Gets a random Meme', description='Gets a random Meme', aliases=["randomeme", "rdmmeme", "rdmeme"])
     async def randommeme(self, ctx):
@@ -19,6 +21,7 @@ class Get(commands.Cog):
             path = "./meme/" + file_name
             await ctx.send(file_name, file=discord.File(path))
             await bot_message.delete()
+            self.logger.log(DEBUG, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command randommeme, outputted %s", file_name)
 
 
     @commands.command(brief='Gets a random pet', description='Gets a random pet', aliases=["rdmpet", "rdpet"])
@@ -30,6 +33,7 @@ class Get(commands.Cog):
             file = discord.File(path)
             await ctx.send(file_name, file=file)
             await bot_message.delete()
+            self.logger.log(DEBUG, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command randompet, outputted %s", file_name)
 
 
     @commands.command(brief='Gets a certain meme', description='Gets a certain meme', aliases=["ctmeme", "ctm"])
@@ -46,6 +50,7 @@ class Get(commands.Cog):
             file = discord.File(path)
             await ctx.send(file_name, file=file)
             await bot_message.delete()
+        self.logger.log(DEBUG, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command certainmeme, sent %s", file_name)
 
     @commands.command(brief='Gets a certan pet', description='Gets a certan pet', aliases=["ctpet", "ctp"])
     async def certainpet(self, ctx, *, arg):
@@ -61,17 +66,19 @@ class Get(commands.Cog):
             file = discord.File(path)
             await ctx.send(file_name, file=file)
             await bot_message.delete()
+        self.logger.log(DEBUG, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command certainpet, sent %s", file_name)
 
     @commands.command(brief='Shows all of the memes', description='Shows all of the memes')
     async def allmemes(self, ctx):
 
         meme_list = discord.File('./meme.txt')
         await ctx.send(f'(updates every 2 minutes)', file=meme_list)
-
+        self.logger.log(DEBUG, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command allmemes")
     @commands.command(brief='Shows all of the pets', description='Shows all of the pets')
     async def allpets(self, ctx):
         pet_list = discord.File('./pet.txt')
         await ctx.send(f'(updates every 2 minutes)', file=pet_list)
+        self.logger.log(DEBUG, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command allpets")
 
 
 def setup(bot):
