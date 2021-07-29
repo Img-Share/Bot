@@ -9,6 +9,7 @@ from discord.ext.tasks import loop
 import os, os.path
 from logging import getLogger, DEBUG, ERROR, INFO, WARNING, CRITICAL
 import traceback
+import sentry_sdk
 class Other(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -35,63 +36,66 @@ class Other(commands.Cog):
     @commands.command(brief="Reload all/one of the bots cogs!")
     @commands.is_owner()
     async def reload(self, ctx, cog=None):
-        if not cog:
-            # No cog, means we reload all cogs
-            async with ctx.typing():
-                embed = discord.Embed(
-                    title="Reloading all cogs!",
-                    color=0x0e6668,
-                    timestamp=ctx.message.created_at
-                )
-                finished_embed = discord.Embed(
-                    title="Finished reloading all cogs!",
-                    color=0x0e6668,
-                    timestamp=ctx.message.created_at
-                )
-                message = await ctx.send(embed=embed)
-                for extension in self.bot.extensions:
-                    try:
-                        self.bot.reload_extension(extension)
-                    except Exception as e:
-                        self.logger.log(ERROR, f"Error reloading cog {extension}:\n{traceback.format_exception(e)}")
-                        await ctx.send(f"Error reloading cog {extension}:\n{traceback.format_exception(e)}")
-                await message.edit(embed=finished_embed)
-        else:
-            # reload the specific cog
-            async with ctx.typing():
-                embed = discord.Embed(
-                    title=f"Reloading cog {cog}",
-                    color=0x0e6668,
-                    timestamp=ctx.message.created_at
-                )
-                ext = f"{cog.lower()}.py"
-                if not os.path.exists(f"./cogs/{ext}"):
-                    # if the file does not exist
-                    embed.add_field(
-                        name=f"Failed to reload: `{ext}`",
-                        value="This cog does not exist.",
-                        inline=False
+        with sentry_sdk.start_span(op='reload', description='Reloads a cog') as span:
+            if not cog:
+                # No cog, means we reload all cogs
+                async with ctx.typing():
+                    embed = discord.Embed(
+                        title="Reloading all cogs!",
+                        color=0x0e6668,
+                        timestamp=ctx.message.created_at
                     )
-
-                elif ext.endswith(".py") and not ext.startswith("_"):
-                    try:
-                        self.bot.unload_extension(f"cogs.{ext[:-3]}")
-                        self.bot.load_extension(f"cogs.{ext[:-3]}")
-                        embed.add_field(
-                            name=f"Reloaded: `{ext}`",
-                            value='\uFEFF',
-                            inline=False
-                        )
-                    except Exception as e:
-                        desired_trace = traceback.format_exception(e)
+                    finished_embed = discord.Embed(
+                        title="Finished reloading all cogs!",
+                        color=0x0e6668,
+                        timestamp=ctx.message.created_at
+                    )
+                    message = await ctx.send(embed=embed)
+                    for extension in self.bot.extensions:
+                        with sentry_sdk.start_span(op=f'reload_{extension}', description=f'Reloading {extension}') as span:
+                            try:
+                                self.bot.reload_extension(extension)
+                            except Exception as e:
+                                self.logger.log(ERROR, f"Error reloading cog {extension}:\n{traceback.format_exception(e)}")
+                                await ctx.send(f"Error reloading cog {extension}:\n{traceback.format_exception(e)}")
+                    await message.edit(embed=finished_embed)
+            else:
+                # reload the specific cog
+                async with ctx.typing():
+                    embed = discord.Embed(
+                        title=f"Reloading cog {cog}",
+                        color=0x0e6668,
+                        timestamp=ctx.message.created_at
+                    )
+                    ext = f"{cog.lower()}.py"
+                    if not os.path.exists(f"./cogs/{ext}"):
+                        # if the file does not exist
                         embed.add_field(
                             name=f"Failed to reload: `{ext}`",
-                            value=desired_trace,
+                            value="This cog does not exist.",
                             inline=False
                         )
-                        self.logger.log(ERROR, f"Error reloading cog {cog}:\n{traceback.format_exception(e)}")
-                self.logger.info(INFO, f"Reloaded cog {cog}")
-                await ctx.send(embed=embed)
+
+                    elif ext.endswith(".py") and not ext.startswith("_"):
+                        with sentry_sdk.start_span(op=f'reload_{ext}', description=f'Reloading {ext}') as span:
+                            try:
+                                self.bot.unload_extension(f"cogs.{ext[:-3]}")
+                                self.bot.load_extension(f"cogs.{ext[:-3]}")
+                                embed.add_field(
+                                    name=f"Reloaded: `{ext}`",
+                                    value='\uFEFF',
+                                    inline=False
+                                )
+                            except Exception as e:
+                                desired_trace = traceback.format_exception(e)
+                                embed.add_field(
+                                    name=f"Failed to reload: `{ext}`",
+                                    value=desired_trace,
+                                    inline=False
+                                )
+                                self.logger.log(ERROR, f"Error reloading cog {cog}:\n{traceback.format_exception(e)}")
+                    self.logger.info(INFO, f"Reloaded cog {cog}")
+                    await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Other(bot))
