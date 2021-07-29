@@ -93,8 +93,7 @@ if os.getenv("SENTRY_URL"):
     sentry_sdk.init(os.getenv("SENTRY_URL"), traces_sample_rate=0.5)
     @client.event
     async def on_message(message):
-        print("on message")
-        with start_transaction(op="task", name="on_message"):
+        with start_transaction(op="task", name="on_message", user=str(message.author.id)):
             with sentry_sdk.start_span(op="message", description="Message") as span:
                 span.set_data("message.id", message.id)
                 span.set_data("message.author.id", message.author.id)
