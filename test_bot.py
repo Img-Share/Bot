@@ -22,6 +22,10 @@ class MockBot:
         self.view = MockView(self.args)
         self.init = True
         self.ind = 0
+        self.author = self
+        self.name = "Discord.py Mockup User"
+        self.discriminator = "0000"
+        self.id = 0
     def __setattr__(self, name: str, value) -> None:
         try:
             if name == "args" or name == "kwargs" and self.init:
