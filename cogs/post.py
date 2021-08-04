@@ -30,11 +30,12 @@ class Post(commands.Cog):
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
             if len(arg.split(" ")) > 1:
                 # it's a URL!
+                name = " ".join(arg.split(" ")[1:])
                 async with ClientSession() as session:
                     async with session.get(arg.split(" ")[0]) as resp:
                         _, ext = os.path.splitext(os.path.basename(urlparse(arg.split(" ")[0]).path))
                         p = (Path(os.curdir) / arg.split(" ")[1]).resolve()
-                        with open(os.path.join("meme", arg.split(" ")[1] + ext, "wb")) as f:
+                        with open(os.path.join("meme", arg.split(" ")[1] + ext), "wb") as f:
                             if p.parent != Path(os.curdir).resolve():
                                 await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
                                 return 
