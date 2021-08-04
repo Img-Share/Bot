@@ -31,7 +31,7 @@ async def on_command_error(ctx, error):
         pass
     else:
         # Probably something important, log it
-        logger.error(traceback.format_exc(error))
+        logger.error(traceback.format_exception(error))
     print(str(error))
 @client.event
 async def on_ready():
