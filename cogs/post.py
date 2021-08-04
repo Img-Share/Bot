@@ -19,7 +19,7 @@ class Post(commands.Cog):
         self.logger = getLogger(__name__)
 
     @commands.command(brief='Posts A Meme to the Meme folder', description='Posts A Meme to the Meme folder')
-    async def postmeme(self, ctx, *, arg):
+    async def postmeme(self, ctx, *, arg=None):
         with sentry_sdk.start_span(op='postmeme', description="Posts a meme to the meme folder") as span:
             regex = re.compile(
             r'^(?:http|ftp)s?://' # http:// or https://
@@ -53,6 +53,10 @@ class Post(commands.Cog):
                             async for data in resp.content.iter_chunked(1024):
                                 f.write(data)
             else:
+                if not arg:
+                    # no file name was provided
+                    # get it from the attachment
+                    arg = ctx.message.attachments[0].filename
                 p = (Path(os.curdir) / arg).resolve()
                 if p.parent != Path(os.curdir).resolve():
                     await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
