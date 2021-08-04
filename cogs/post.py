@@ -10,7 +10,9 @@ import os, os.path
 from logging import getLogger, ERROR, CRITICAL, INFO, WARNING, DEBUG
 import sentry_sdk
 from aiohttp import ClientSession
-import os.path
+import os.path, os
+from urllib.parse import urlparse
+import re
 class Post(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -19,10 +21,30 @@ class Post(commands.Cog):
     @commands.command(brief='Posts A Meme to the Meme folder', description='Posts A Meme to the Meme folder')
     async def postmeme(self, ctx, *, arg):
         with sentry_sdk.start_span(op='postmeme', description="Posts a meme to the meme folder") as span:
+            regex = re.compile(
+            r'^(?:http|ftp)s?://' # http:// or https://
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
+            r'localhost|' #localhost...
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
+            r'(?::\d+)?' # optional port
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
             if len(arg.split(" ")) > 1:
                 # it's a URL!
                 async with ClientSession() as session:
                     async with session.get(arg.split(" ")[0]) as resp:
+                        p = (Path(os.curdir) / arg).resolve()
+                        with p.open('wb') as f:
+                            if p.parent != Path(os.curdir).resolve():
+                                await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
+                                return 
+                            async for data in resp.content.iter_chunked(1024):
+                                f.write(data)
+            elif re.match(regex, arg) and len(arg.split(" ")) == 1:
+                # it's a URL!
+                # but... no file name was provided
+                arg = os.path.basename(urlparse(arg).path)
+                async with ClientSession() as session:
+                    async with session.get(arg) as resp:
                         p = (Path(os.curdir) / arg).resolve()
                         with p.open('wb') as f:
                             if p.parent != Path(os.curdir).resolve():
