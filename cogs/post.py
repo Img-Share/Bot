@@ -32,7 +32,8 @@ class Post(commands.Cog):
                 # it's a URL!
                 async with ClientSession() as session:
                     async with session.get(arg.split(" ")[0]) as resp:
-                        p = (Path(os.curdir) / arg).resolve()
+                        _, ext = os.path.splittext(os.path.basename(urlparse(resp.url).path)) 
+                        p = (Path(os.curdir) / (arg.split(" ")[1] + ext)).resolve()
                         with p.open('wb') as f:
                             if p.parent != Path(os.curdir).resolve():
                                 await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
