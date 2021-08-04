@@ -39,8 +39,11 @@ class Post(commands.Cog):
                             if p.parent != Path(os.curdir).resolve():
                                 await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
                                 return 
+                            await ctx.send("I am downloading your meme")
                             async for data in resp.content.iter_chunked(1024):
                                 f.write(data)
+                            await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
+                            self.logger.log(INFO, f"{arg} was just added to the meme folder")
             elif re.match(regex, arg) and len(arg.split(" ")) == 1:
                 # it's a URL!
                 # but... no file name was provided
@@ -55,6 +58,8 @@ class Post(commands.Cog):
                         with open(p, 'wb') as f:
                             async for data in resp.content.iter_chunked(1024):
                                 f.write(data)
+                        await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
+                        self.logger.log(INFO, f"{arg} was just added to the meme folder")
             else:
                 if not arg:
                     # no file name was provided
