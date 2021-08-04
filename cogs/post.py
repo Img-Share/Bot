@@ -9,6 +9,7 @@ from discord.ext.tasks import loop
 import os, os.path
 from logging import getLogger, ERROR, CRITICAL, INFO, WARNING, DEBUG
 import sentry_sdk
+from aiohttp import ClientSession
 class Post(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -17,6 +18,17 @@ class Post(commands.Cog):
     @commands.command(brief='Posts A Meme to the Meme folder', description='Posts A Meme to the Meme folder')
     async def postmeme(self, ctx, *, arg):
         with sentry_sdk.start_span(op='postmeme', description="Posts a meme to the meme folder") as span:
+            if len(arg.split(" ")) > 1:
+                # it's a URL!
+                async with ClientSession() as session:
+                    async with session.get(arg.split(" ")[0]) as resp:
+                        p = (Path(os.curdir) / arg).resolve()
+                        with p.open('wb') as f:
+                            if p.parent != Path(os.curdir).resolve():
+                                await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
+                                return 
+                            async for data in resp.content.iter_chunked(1024):
+                                f.write(data)
             p = (Path(os.curdir) / arg).resolve()
             if p.parent != Path(os.curdir).resolve():
                 await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
