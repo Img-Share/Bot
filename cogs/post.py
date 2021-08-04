@@ -29,16 +29,18 @@ class Post(commands.Cog):
                                 return 
                             async for data in resp.content.iter_chunked(1024):
                                 f.write(data)
-            p = (Path(os.curdir) / arg).resolve()
-            if p.parent != Path(os.curdir).resolve():
-                await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
-                return
             else:
-                span.set_tag('file', arg)
-                imageName = './meme/' + arg + '.png'
-                await ctx.message.attachments[0].save(imageName)
-                await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
-                self.logger.log(INFO, f"{arg} was just added to the meme folder")
+                p = (Path(os.curdir) / arg).resolve()
+                if p.parent != Path(os.curdir).resolve():
+                    await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
+                    return
+                else:
+                    span.set_tag('file', arg)
+                    ctx.attachments[0] 
+                    imageName = './meme/' + arg + '.png'
+                    await ctx.message.attachments[0].save(imageName)
+                    await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
+                    self.logger.log(INFO, f"{arg} was just added to the meme folder")
 
     @commands.command(brief='Posts A Meme Video to the Meme folder', description='Posts A Meme Video to the Meme folder')
     async def postmemevideo(self, ctx, *, arg):
