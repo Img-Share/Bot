@@ -31,7 +31,7 @@ async def on_command_error(ctx, error):
         pass
     else:
         # Probably something important, log it
-        logger.error(traceback.format_exc(error))
+        logger.error(traceback.format_tb(error.__traceback__))
     print(str(error))
 @client.event
 async def on_ready():
@@ -93,7 +93,6 @@ if os.getenv("SENTRY_URL"):
     sentry_sdk.init(os.getenv("SENTRY_URL"), traces_sample_rate=0.5)
     @client.event
     async def on_message(message):
-        print("on message")
         with start_transaction(op="task", name="on_message"):
             with sentry_sdk.start_span(op="message", description="Message") as span:
                 span.set_data("message.id", message.id)
