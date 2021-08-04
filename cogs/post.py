@@ -42,14 +42,16 @@ class Post(commands.Cog):
             elif re.match(regex, arg) and len(arg.split(" ")) == 1:
                 # it's a URL!
                 # but... no file name was provided
-                arg = os.path.basename(urlparse(arg).path)
                 async with ClientSession() as session:
                     async with session.get(arg) as resp:
+                        arg = os.path.basename(urlparse(arg).path)
                         p = (Path(os.curdir) / arg).resolve()
-                        with p.open('wb') as f:
-                            if p.parent != Path(os.curdir).resolve():
-                                await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
-                                return 
+                        if p.parent != Path(os.curdir).resolve():
+                            await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
+                            return 
+                        p = Path(os.path.join("meme", os.path.relpath(p)))
+                        print(p)
+                        with open(p, 'wb') as f:
                             async for data in resp.content.iter_chunked(1024):
                                 f.write(data)
             else:
