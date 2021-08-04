@@ -32,7 +32,7 @@ class Post(commands.Cog):
                 # it's a URL!
                 async with ClientSession() as session:
                     async with session.get(arg.split(" ")[0]) as resp:
-                        _, ext = os.path.splitext(os.path.basename(urlparse(resp.url).path)) 
+                        _, ext = os.path.splitext(os.path.basename(urlparse(arg.split(" ")[0]).path)) 
                         p = (Path(os.curdir) / (arg.split(" ")[1] + ext)).resolve()
                         with p.open('wb') as f:
                             if p.parent != Path(os.curdir).resolve():
