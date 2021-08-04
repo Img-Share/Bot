@@ -79,13 +79,13 @@ class Get(commands.Cog):
 
     @commands.command(brief='Shows all of the memes', description='Shows all of the memes')
     async def allmemes(self, ctx):
-        with sentry_sdk.start_span(op='certainmeme', description='Gets a certain meme') as span:
+        with sentry_sdk.start_span(op='allmemes', description='Gets a certain meme') as span:
             meme_list = discord.File('./meme.txt')
             await ctx.send(f'(updates every 2 minutes)', file=meme_list)
             self.logger.log(INFO, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command allmemes")
     @commands.command(brief='Shows all of the pets', description='Shows all of the pets')
     async def allpets(self, ctx):
-        with sentry_sdk.start_span(op='certainmeme', description='Gets a certain meme') as span:
+        with sentry_sdk.start_span(op='allpets', description='Gets a certain meme') as span:
             pet_list = discord.File('./pet.txt')
             await ctx.send(f'(updates every 2 minutes)', file=pet_list)
             self.logger.log(INFO, f"{ctx.author.name}#{ctx.author.discriminator} (ID: {ctx.author.id}) ran command allpets")
