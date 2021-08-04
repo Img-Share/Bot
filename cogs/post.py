@@ -32,7 +32,7 @@ class Post(commands.Cog):
                 # it's a URL!
                 async with ClientSession() as session:
                     async with session.get(arg.split(" ")[0]) as resp:
-                        _, ext = os.path.splittext(os.path.basename(urlparse(resp.url).path)) 
+                        _, ext = os.path.splitext(os.path.basename(urlparse(resp.url).path)) 
                         p = (Path(os.curdir) / (arg.split(" ")[1] + ext)).resolve()
                         with p.open('wb') as f:
                             if p.parent != Path(os.curdir).resolve():
@@ -65,7 +65,7 @@ class Post(commands.Cog):
                     return
                 else:
                     span.set_tag('file', arg)
-                    _, ext = os.path.splittext(ctx.attachments[0].filename) 
+                    _, ext = os.path.splitext(ctx.attachments[0].filename) 
                     imageName = './meme/' + arg + ext
                     await ctx.message.attachments[0].save(imageName)
                     await ctx.send(f'Posted <:ImgShareCheck:851852314217283645>')
