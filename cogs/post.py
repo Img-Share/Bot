@@ -50,7 +50,6 @@ class Post(commands.Cog):
                             await ctx.send(f'thats a bit sussy :flushed: (dont use ".." or "/" in your file name)')
                             return 
                         p = Path(os.path.join("meme", os.path.relpath(p)))
-                        print(p)
                         with open(p, 'wb') as f:
                             async for data in resp.content.iter_chunked(1024):
                                 f.write(data)
